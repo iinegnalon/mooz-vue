@@ -1,20 +1,14 @@
 <script setup>
 import BaseInput from '@/components/common/BaseInput.vue';
-import { computed } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
 
-const searchQuery = computed({
-  get() {
-    return store.getters['search/searchQuery'];
-  },
-  set(newValue) {
-    store.dispatch('search/updateSearchQuery', newValue);
-  },
-});
+const searchQuery = ref('');
 
 function searchMovies() {
+  store.dispatch('search/updateSearchQuery', searchQuery.value);
   store.dispatch('search/searchMovies');
 }
 </script>
