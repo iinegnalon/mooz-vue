@@ -8,6 +8,7 @@ const store = useStore();
 const searchQuery = ref('');
 
 function searchMovies() {
+  searchQuery.value = searchQuery.value.trim();
   store.dispatch('search/updateSearchQuery', searchQuery.value);
   store.dispatch('search/searchMovies');
 }

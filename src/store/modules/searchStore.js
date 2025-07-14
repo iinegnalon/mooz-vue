@@ -1,10 +1,9 @@
-const pageSize = 10;
-
 const state = () => ({
   searchQuery: '',
   results: [],
   totalResults: 0,
   currentPage: 1,
+  pageSize: 10,
   loading: false,
   error: null,
 });
@@ -13,11 +12,12 @@ const getters = {
   searchQuery: (state) => state.searchQuery,
   results: (state) => state.results,
   totalResults: (state) => state.totalResults,
+  pageSize: (state) => state.pageSize,
   currentPage: (state) => state.currentPage,
   loading: (state) => state.loading,
   error: (state) => state.error,
   totalPages: (state) => {
-    return Math.ceil(state.totalResults / pageSize) || 0;
+    return Math.ceil(state.totalResults / state.pageSize) || 0;
   },
 };
 
@@ -42,15 +42,14 @@ const mutations = {
 
 const actions = {
   updateSearchQuery({ commit }, query) {
-    commit('SET_SEARCH_QUERY', query);
+    let searchQuery = query.trim();
+    commit('SET_SEARCH_QUERY', searchQuery);
   },
   searchMovies: async ({ commit, state }) => {
     commit('SET_LOADING', true);
     commit('SET_ERROR', null);
 
     let searchQuery = state.searchQuery.trim();
-
-    commit('SET_SEARCH_QUERY', searchQuery);
 
     const apiKey = import.meta.env.VITE_OMDB_API_KEY;
     const page = state.currentPage || 1;
