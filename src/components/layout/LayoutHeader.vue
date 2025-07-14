@@ -1,5 +1,22 @@
 <script setup>
 import BaseInput from '@/components/common/BaseInput.vue';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const searchQuery = computed({
+  get() {
+    return store.getters['search/searchQuery'];
+  },
+  set(newValue) {
+    store.dispatch('search/updateSearchQuery', newValue);
+  },
+});
+
+function searchMovies() {
+  store.dispatch('search/searchMovies');
+}
 </script>
 
 <template>
@@ -10,7 +27,16 @@ import BaseInput from '@/components/common/BaseInput.vue';
       </div>
 
       <div class="header__search">
-        <BaseInput />
+        <BaseInput
+          v-model="searchQuery"
+          placeholder="Enter the movie title"
+          @enter="searchMovies"
+          @icon-click="searchMovies"
+        >
+          <template #icon>
+            <img alt="Search" src="@/assets/icons/search.svg" />
+          </template>
+        </BaseInput>
       </div>
 
       <div class="header__user">
