@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <main>Catalog View</main>
+  <div>Catalog View</div>
 </template>
