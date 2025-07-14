@@ -1,0 +1,129 @@
+@import 'variables';
+
+// Mobile
+body {
+  font-family: 'Poppins', 'Arial', sans-serif; // Poppins instead of Gilroy, because Gilroy is not free
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $color-secondary;
+  margin: 0;
+  padding: 0;
+  background: $color-background;
+}
+
+h1 {
+  font-size: 56px;
+  line-height: 64px;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 56px;
+  line-height: 64px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+}
+
+.color-primary {
+  color: $color-primary;
+}
+
+.color-secondary {
+  color: $color-secondary;
+}
+
+.color-background {
+  background-color: $color-background;
+}
+
+.color-error {
+  color: $color-error;
+}
+
+.color-white {
+  color: white;
+}
+
+.color-black {
+  color: black;
+}
+
+.color-gray {
+  color: $color-gray;
+}
+
+.color-light-gray {
+  color: $color-light-gray;
+}
+
+.color-dark-gray {
+  color: $color-dark-gray;
+}
+
+a,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Tablet
+@media screen and (min-width: $breakpoint-tablet) {
+  body {
+    font-size: 17px;
+    line-height: 26px;
+  }
+
+  h1 {
+    font-size: 64px;
+    line-height: 72px;
+  }
+
+  h2 {
+    font-size: 56px;
+    line-height: 64px;
+  }
+
+  h3 {
+    font-size: 44px;
+    line-height: 52px;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+}
+
+// Desktop
+@media screen and (min-width: $breakpoint-desktop) {
+  body {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  h1 {
+    font-size: 72px;
+    line-height: 80px;
+  }
+
+  h2 {
+    font-size: 64px;
+    line-height: 72px;
+  }
+
+  h3 {
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+}
