@@ -1,35 +1,25 @@
-# mooz-vue
+## Mooz-Vue
 
-This template should help get you started developing with Vue 3 in Vite.
+Проект реализован на **Vue 3** с использованием сборщика **Vite**.  
+Используются **Composition API**, **SCSS** и **Vuex**.
 
-## Recommended IDE Setup
+## Запуск проекта
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Чтобы запустить проект локально, выполните следующие шаги:
 
-## Customize configuration
+1. Клонируйте репозиторий.
+2. Установите пакеты с помощью команды `npm install`.
+3. Добавьте файл .env в корень проекта: `VITE_OMDB_API_KEY=your_key_here`
+4. Запустите проект с помощью команды `npm run dev`.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+---
 
-## Project Setup
+## Версии окружения
 
-```sh
-npm install
-```
+Разработка велась на следующих версиях:
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+```bash
+Node.js: v22.17.0
+npm: v10.9.2
+Vue: v3.5.17
 ```
