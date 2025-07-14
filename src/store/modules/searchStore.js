@@ -85,6 +85,9 @@ const actions = {
       commit('SET_LOADING', false);
     }
   },
+  updateCurrentPage({ commit }, page) {
+    commit('SET_CURRENT_PAGE', page);
+  },
 };
 
 export default {

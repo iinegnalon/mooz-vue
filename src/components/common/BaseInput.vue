@@ -63,7 +63,7 @@ function updateValue(event) {
     border: 1px solid $color-gray;
     border-radius: 5px;
     padding: 0.6rem 1rem;
-    background-color: $color-light-gray;
+    background-color: $color-white;
     cursor: text;
     transition: 0.3s ease;
 

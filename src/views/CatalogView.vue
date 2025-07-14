@@ -19,6 +19,10 @@ const moviesLoading = computed(() => store.getters['search/loading']);
 function handlePageChange(page) {
   store.commit('search/SET_CURRENT_PAGE', page);
   store.dispatch('search/searchMovies');
+  window?.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
 </script>
 
@@ -42,13 +46,21 @@ function handlePageChange(page) {
       {{ searchError }}
     </div>
 
-    <BaseLoader v-if="moviesLoading" />
+    <div v-if="moviesLoading" class="catalog__loader">
+      <BaseLoader />
+    </div>
 
     <div v-if="!moviesLoading" class="catalog__grid">
       <MovieCard v-for="movie in movies" :key="movie.imdbID" :movie="movie" />
     </div>
 
-    <BasePagination />
+    <BasePagination
+      v-if="totalPages > 1"
+      :current-page="currentPage"
+      :page-size="pageSize"
+      :total-results="totalResults"
+      @change="handlePageChange"
+    />
   </div>
 </template>
 
@@ -59,7 +71,6 @@ function handlePageChange(page) {
 .catalog {
   display: flex;
   flex-direction: column;
-  gap: 44px;
 
   &__header {
     display: flex;
@@ -98,19 +109,26 @@ function handlePageChange(page) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 28px;
+    margin-bottom: 44px;
 
     .movie-card {
       flex: 0 0 80%;
     }
+  }
+
+  &__loader {
+    min-height: 80vh;
   }
 }
 
 // Tablet
 @media screen and (min-width: $breakpoint-tablet) {
   .catalog {
-    gap: 54px;
-
     &__grid {
+      margin-top: 35px;
+      margin-bottom: 54px;
+
       .movie-card {
         flex: 0 0 100%;
         max-width: 245px;
@@ -122,7 +140,10 @@ function handlePageChange(page) {
 // Desktop
 @media screen and (min-width: $breakpoint-desktop) {
   .catalog {
-    gap: 84px;
+    &__grid {
+      margin-top: 57px;
+      margin-bottom: 84px;
+    }
   }
 }
 </style>
