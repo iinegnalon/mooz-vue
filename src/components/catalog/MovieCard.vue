@@ -1,22 +1,40 @@
 <script setup>
-defineProps({
+import { ref, watch } from 'vue';
+
+const props = defineProps({
   movie: Object,
 });
+
+const naImage = 'N/A';
+
+const placeholder = new URL('@/assets/images/empty-poster.png', import.meta.url)
+  .href;
+const imgSrc = ref(
+  props.movie.Poster !== naImage ? props.movie.Poster : placeholder,
+);
+const error = ref(false);
+
+function onImgError() {
+  imgSrc.value = placeholder;
+  error.value = true;
+}
+
+watch(
+  () => props.movie.Poster,
+  (newPoster) => {
+    imgSrc.value = newPoster !== naImage ? newPoster : placeholder;
+  },
+);
 </script>
 
 <template>
   <div class="movie-card">
     <img
-      v-if="movie.Poster !== 'N/A'"
       :alt="movie.Title"
-      :src="movie.Poster"
+      :class="{ 'movie-card__image-empty': error || movie.Poster === naImage }"
+      :src="imgSrc"
       class="movie-card__image"
-    />
-    <img
-      v-else
-      :alt="movie.Title"
-      class="movie-card__image movie-card__image-empty"
-      src="@/assets/images/empty-poster.png"
+      @error="onImgError"
     />
 
     <div class="movie-card__info">

@@ -54,6 +54,7 @@ function handlePageChange(page) {
     </div>
 
     <BasePagination
+      v-if="totalResults > 0"
       :current-page="currentPage"
       :page-size="pageSize"
       :total-results="totalResults"
