@@ -13,14 +13,14 @@ const totalPages = computed(
   () => Math.ceil(props.totalResults / props.pageSize) || 0,
 );
 const pagesToShow = computed(() => {
-  const onSides = 1;
+  const onSides = 2;
 
   const total = totalPages.value;
   const current = props.currentPage;
   const pages = [];
 
   for (let i = 1; i <= total; i++) {
-    let offset = i === 1 || total ? onSides + 1 : onSides;
+    let offset = i === 1 || i === total ? onSides + 1 : onSides;
     if (
       i === 1 ||
       (current - offset <= i && current + offset >= i) ||
