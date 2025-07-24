@@ -16,9 +16,6 @@ const getters = {
   currentPage: (state) => state.currentPage,
   loading: (state) => state.loading,
   error: (state) => state.error,
-  totalPages: (state) => {
-    return Math.ceil(state.totalResults / state.pageSize) || 0;
-  },
 };
 
 const mutations = {

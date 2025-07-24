@@ -13,50 +13,32 @@ const totalPages = computed(
   () => Math.ceil(props.totalResults / props.pageSize) || 0,
 );
 const pagesToShow = computed(() => {
+  const onSides = 1;
+
   const total = totalPages.value;
   const current = props.currentPage;
   const pages = [];
 
-  if (total <= 5) {
-    for (let i = 1; i <= total; i++) {
+  for (let i = 1; i <= total; i++) {
+    let offset = i === 1 || total ? onSides + 1 : onSides;
+    if (
+      i === 1 ||
+      (current - offset <= i && current + offset >= i) ||
+      i === current ||
+      i === total
+    ) {
       pages.push(i);
+    } else if (i === current - (offset + 1) || i === current + (offset + 1)) {
+      pages.push('...');
     }
-    return pages;
   }
 
-  pages.push(1);
-
-  if (current <= 2) {
-    pages.push(2);
-    pages.push(3);
-    pages.push('...');
-  } else if (current === 3) {
-    pages.push(2);
-    pages.push(3);
-    pages.push(4);
-    pages.push('...');
-  } else if (current === total - 2) {
-    pages.push('...');
-    pages.push(total - 3);
-    pages.push(total - 2);
-    pages.push(total - 1);
-  } else if (current >= total - 1) {
-    pages.push('...');
-    pages.push(total - 2);
-    pages.push(total - 1);
-  } else {
-    pages.push('...');
-    pages.push(current - 1);
-    pages.push(current);
-    pages.push(current + 1);
-    pages.push('...');
-  }
-
-  pages.push(total);
   return pages;
 });
 
 function goTo(page) {
+  if (page === props.currentPage) return;
+
   if (page >= 1 && page <= totalPages.value) {
     emit('change', page);
   }
@@ -72,13 +54,6 @@ function goTo(page) {
         @click="goTo(currentPage - 1)"
       >
         <img
-          v-if="currentPage === 1"
-          alt="Left Arrow"
-          class="left-arrow"
-          src="@/assets/icons/arrow-right-disabled.svg"
-        />
-        <img
-          v-else
           alt="Left Arrow"
           class="left-arrow"
           src="@/assets/icons/arrow-right.svg"
@@ -103,12 +78,7 @@ function goTo(page) {
         class="arrow"
         @click="goTo(currentPage + 1)"
       >
-        <img
-          v-if="currentPage === totalPages"
-          alt="Right Arrow"
-          src="@/assets/icons/arrow-right-disabled.svg"
-        />
-        <img v-else alt="Right Arrow" src="@/assets/icons/arrow-right.svg" />
+        <img alt="Right Arrow" src="@/assets/icons/arrow-right.svg" />
       </button>
     </div>
   </div>
@@ -138,7 +108,7 @@ function goTo(page) {
     }
 
     button {
-      padding: 0.4rem 0.6rem;
+      padding: 0.2rem 0.6rem;
       font-size: 12px;
       border: 1px solid $color-gray;
       border-right: none;
@@ -147,10 +117,17 @@ function goTo(page) {
 
       &.active {
         background: $color-light-gray;
+        cursor: default;
       }
 
       &:disabled {
         cursor: default;
+        color: inherit;
+
+        img {
+          opacity: 0.5;
+          filter: grayscale(50%);
+        }
       }
 
       &.arrow,

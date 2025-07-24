@@ -9,7 +9,6 @@ const store = useStore();
 
 const movies = computed(() => store.getters['search/results']);
 const totalResults = computed(() => store.getters['search/totalResults']);
-const totalPages = computed(() => store.getters['search/totalPages']);
 const searchError = computed(() => store.getters['search/error']);
 const searchQuery = computed(() => store.getters['search/searchQuery']);
 const currentPage = computed(() => store.getters['search/currentPage']);
@@ -55,7 +54,6 @@ function handlePageChange(page) {
     </div>
 
     <BasePagination
-      v-if="totalPages > 1"
       :current-page="currentPage"
       :page-size="pageSize"
       :total-results="totalResults"
